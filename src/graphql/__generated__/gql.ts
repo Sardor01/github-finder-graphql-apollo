@@ -15,6 +15,8 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 const documents = {
   '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n':
     types.GetPinnedItemsDocument,
+  '\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n':
+    types.SearchUsersDocument,
 }
 
 /**
@@ -37,6 +39,12 @@ export function graphql(source: string): unknown
 export function graphql(
   source: '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n',
 ): (typeof documents)['\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n']
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: '\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

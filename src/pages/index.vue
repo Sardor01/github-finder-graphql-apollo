@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { GET_PINNED_ITEMS } from '~/graphql/queries/GetPinnedItems'
-import type { GetPinnedItemsQuery, GetPinnedItemsQueryVariables } from '~/graphql/__generated__/graphql'
+import { SEARCH_USERS } from '~/graphql/queries/SearchUsers'
+import { SearchType } from '~/graphql/__generated__/graphql'
+import type { SearchUsersQuery, SearchUsersQueryVariables } from '~/graphql/__generated__/graphql'
 
-const { result } = useQuery<GetPinnedItemsQuery, GetPinnedItemsQueryVariables>(GET_PINNED_ITEMS, {
+const { result } = useQuery<SearchUsersQuery, SearchUsersQueryVariables>(SEARCH_USERS, {
+  query: 'sardor01',
+  type: SearchType.User,
   first: 2,
 })
 </script>
@@ -10,7 +13,7 @@ const { result } = useQuery<GetPinnedItemsQuery, GetPinnedItemsQueryVariables>(G
 <template>
   <main class="mx-auto px-4 py-10 font-sans text-gray-700 container">
     <div>
-      <pre>{{ JSON.stringify(result?.viewer.pinnedItems.edges, null, 2) }}</pre>
+      <pre>{{ JSON.stringify(result, null, 2) }}</pre>
     </div>
   </main>
 </template>
