@@ -1,6 +1,12 @@
 {
   "extends": ["@antfu", "@unocss", "plugin:prettier/recommended"],
-  "ignorePatterns": ["auto-imports.d.ts", "components.d.ts", "typed-router.d.ts"],
+  "ignorePatterns": [
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "github-schema.json",
+    "typed-router.d.ts",
+    "src/**/__generated__/**/*"
+  ],
   "rules": {
     "no-console": "warn",
     "antfu/if-newline": "off",

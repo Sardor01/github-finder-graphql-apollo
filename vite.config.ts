@@ -19,7 +19,7 @@ export default defineConfig({
     VueRouter(),
     Vue(),
     AutoImport({
-      imports: ['vue', VueRouterAutoImports],
+      imports: ['vue', VueRouterAutoImports, { '@vue/apollo-composable': ['useQuery', 'useLazyQuery', 'useMutation'] }],
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/],
       vueTemplate: true,
     }),

@@ -24,4 +24,6 @@ coverage
 pnpm-lock.yaml
 auto-imports.d.ts
 components.d.ts
+github-schema.json
 typed-router.d.ts
+src/graphql/__generated__

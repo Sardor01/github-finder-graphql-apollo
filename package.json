@@ -12,15 +12,23 @@
     "lint:fix": "pnpm lint --fix",
     "format:fix": "prettier --write .",
     "lf": "pnpm lint:fix && pnpm format:fix",
-    "cleanup": "rimraf auto-imports.d.ts components.d.ts typed-router.d.ts dist node_modules && pnpm install && pnpm dev"
+    "cleanup": "rimraf auto-imports.d.ts components.d.ts typed-router.d.ts dist node_modules && pnpm install && pnpm dev",
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
+    "@apollo/client": "3.7.16",
+    "@vue/apollo-composable": "4.0.0-beta.7",
     "@vueuse/core": "10.2.1",
+    "graphql": "16.7.1",
+    "graphql-tag": "2.12.6",
     "vue": "3.3.4",
     "vue-router": "4.2.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.39.6",
+    "@graphql-codegen/cli": "4.0.1",
+    "@graphql-codegen/client-preset": "4.0.1",
+    "@graphql-typed-document-node/core": "3.2.0",
     "@types/jsdom": "21.1.1",
     "@types/node": "20.3.2",
     "@unocss/eslint-config": "0.53.4",
