@@ -1,9 +1,9 @@
 import gql from 'graphql-tag'
 
 export const GET_PINNED_ITEMS = gql`
-  query GetPinnedItems {
+  query GetPinnedItems($first: Int!) {
     viewer {
-      pinnedItems(first: 6) {
+      pinnedItems(first: $first) {
         edges {
           node {
             ... on Repository {

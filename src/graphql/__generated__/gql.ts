@@ -13,7 +13,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query GetPinnedItems {\n    viewer {\n      pinnedItems(first: 6) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n':
+  '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n':
     types.GetPinnedItemsDocument,
 }
 
@@ -35,8 +35,8 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetPinnedItems {\n    viewer {\n      pinnedItems(first: 6) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetPinnedItems {\n    viewer {\n      pinnedItems(first: 6) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n']
+  source: '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

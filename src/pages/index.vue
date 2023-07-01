@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { GET_PINNED_ITEMS } from '~/graphql/queries/GetPinnedItems'
-import type { GetPinnedItemsQuery } from '~/graphql/__generated__/graphql'
+import type { GetPinnedItemsQuery, GetPinnedItemsQueryVariables } from '~/graphql/__generated__/graphql'
 
-const { result } = useQuery<GetPinnedItemsQuery>(GET_PINNED_ITEMS)
+const { result } = useQuery<GetPinnedItemsQuery, GetPinnedItemsQueryVariables>(GET_PINNED_ITEMS, {
+  first: 2,
+})
 </script>
 
 <template>

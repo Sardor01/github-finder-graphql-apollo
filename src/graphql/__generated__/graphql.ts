@@ -28327,7 +28327,9 @@ export enum WorkflowState {
   DisabledManually = 'DISABLED_MANUALLY',
 }
 
-export type GetPinnedItemsQueryVariables = Exact<{ [key: string]: never }>
+export type GetPinnedItemsQueryVariables = Exact<{
+  first: Scalars['Int']['input']
+}>
 
 export type GetPinnedItemsQuery = {
   __typename?: 'Query'
@@ -28353,6 +28355,13 @@ export const GetPinnedItemsDocument = {
       kind: 'OperationDefinition',
       operation: 'query',
       name: { kind: 'Name', value: 'GetPinnedItems' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } } },
+        },
+      ],
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
@@ -28369,7 +28378,7 @@ export const GetPinnedItemsDocument = {
                     {
                       kind: 'Argument',
                       name: { kind: 'Name', value: 'first' },
-                      value: { kind: 'IntValue', value: '6' },
+                      value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
                     },
                   ],
                   selectionSet: {
