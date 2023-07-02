@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   type?: 'button' | 'submit' | 'reset'
-  size?: 'md' | 'lg'
+  size?: 'custom' | 'md' | 'lg'
   variant?: 'custom' | 'gray' | 'red'
   href?: string
   loading?: boolean
@@ -10,8 +10,10 @@ const props = defineProps<{
 
 const btnSize = computed<string>(() => {
   switch (props.size) {
+    case 'custom':
+      return ''
     case 'md':
-      return 'h-13 min-w-[180px] px-6 py-2 md:h-14'
+      return 'h-12 min-w-[180px] px-6 py-2 md:h-13'
     case 'lg':
       return 'h-15 min-w-[180px] px-8 py-3 md:h-16'
     default:
@@ -38,7 +40,7 @@ const btnVariant = computed<string>(() => {
     :is="href ? 'a' : 'button'"
     :href="href"
     :type="href ? undefined : type"
-    class="inline-flex select-none items-center whitespace-nowrap rounded-2 uppercase outline-none transition-colors duration-200 ease-in-out disabled:(pointer-events-none opacity-70) focus-visible:ring-4 hover:ring-none"
+    class="inline-flex select-none items-center whitespace-nowrap rounded-2 outline-none transition-colors duration-200 ease-in-out disabled:(pointer-events-none opacity-70) focus-visible:ring-4 hover:ring-none"
     :class="[!start && 'justify-center text-center', btnSize, btnVariant]"
   >
     <svg

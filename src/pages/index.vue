@@ -32,8 +32,11 @@ const onSubmit = () => {
   <main class="mx-auto px-4 py-10 font-sans container">
     <form class="grid grid-cols-1 mb-8 gap-4" @submit.prevent="onSubmit">
       <base-text-field id="search" v-model="variables.query" placeholder="Search..." required />
-      <base-button size="md" variant="gray" :disabled="loading" :loading="loading">Search</base-button>
+      <base-button size="md" variant="gray" class="uppercase" :disabled="loading" :loading="loading">
+        Search
+      </base-button>
     </form>
+    <div v-if="loading"><img src="/spinner.gif" alt="" draggable="false" class="mx-auto" /></div>
     <div v-if="result && result.search.edges">
       <div class="xs:grid-cols-2 grid grid-cols-1 gap-4 lg:grid-cols-4 md:grid-cols-3 xl:gap-6">
         <template v-for="edge in result.search.edges">

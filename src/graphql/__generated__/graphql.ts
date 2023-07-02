@@ -28327,6 +28327,51 @@ export enum WorkflowState {
   DisabledManually = 'DISABLED_MANUALLY',
 }
 
+export type GetUserInfoQueryVariables = Exact<{
+  login: Scalars['String']['input']
+}>
+
+export type GetUserInfoQuery = {
+  __typename?: 'Query'
+  user?: {
+    __typename?: 'User'
+    name?: string | null
+    avatarUrl: any
+    bio?: string | null
+    company?: string | null
+    email: string
+    isHireable: boolean
+    location?: string | null
+    url: any
+    websiteUrl?: any | null
+    followers: { __typename?: 'FollowerConnection'; totalCount: number }
+    following: { __typename?: 'FollowingConnection'; totalCount: number }
+    gists: { __typename?: 'GistConnection'; totalCount: number }
+    repositories: {
+      __typename?: 'RepositoryConnection'
+      totalCount: number
+      nodes?: Array<{
+        __typename?: 'Repository'
+        name: string
+        description?: string | null
+        url: any
+        isPrivate: boolean
+        isTemplate: boolean
+        languages?: {
+          __typename?: 'LanguageConnection'
+          nodes?: Array<{ __typename?: 'Language'; id: string; name: string; color?: string | null } | null> | null
+        } | null
+        stargazers: { __typename?: 'StargazerConnection'; totalCount: number }
+      } | null> | null
+    }
+    socialAccounts: {
+      __typename?: 'SocialAccountConnection'
+      totalCount: number
+      nodes?: Array<{ __typename?: 'SocialAccount'; displayName: string; url: any } | null> | null
+    }
+  } | null
+}
+
 export type SearchRepositoriesQueryVariables = Exact<{
   query: Scalars['String']['input']
   first?: InputMaybe<Scalars['Int']['input']>
@@ -28390,6 +28435,203 @@ export type SearchUsersQuery = {
   }
 }
 
+export const GetUserInfoDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'GetUserInfo' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'login' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'login' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'login' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'avatarUrl' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'bio' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'company' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'email' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isHireable' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'location' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'websiteUrl' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'followers' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'following' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'gists' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'privacy' },
+                      value: { kind: 'EnumValue', value: 'PUBLIC' },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'repositories' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: { kind: 'IntValue', value: '5' },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'orderBy' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'field' },
+                            value: { kind: 'EnumValue', value: 'CREATED_AT' },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'direction' },
+                            value: { kind: 'EnumValue', value: 'DESC' },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'privacy' },
+                      value: { kind: 'EnumValue', value: 'PUBLIC' },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nodes' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'isPrivate' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'languages' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'first' },
+                                  value: { kind: 'IntValue', value: '1' },
+                                },
+                              ],
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'nodes' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                        { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                        { kind: 'Field', name: { kind: 'Name', value: 'color' } },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'stargazers' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'socialAccounts' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: { kind: 'IntValue', value: '5' },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'totalCount' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'nodes' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+                            { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetUserInfoQuery, GetUserInfoQueryVariables>
 export const SearchRepositoriesDocument = {
   kind: 'Document',
   definitions: [
