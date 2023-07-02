@@ -29,9 +29,8 @@ export const GET_USER_INFO = gql`
           url
           isPrivate
           isTemplate
-          languages(first: 1) {
+          languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
             nodes {
-              id
               name
               color
             }

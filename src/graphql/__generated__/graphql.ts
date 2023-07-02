@@ -28359,7 +28359,7 @@ export type GetUserInfoQuery = {
         isTemplate: boolean
         languages?: {
           __typename?: 'LanguageConnection'
-          nodes?: Array<{ __typename?: 'Language'; id: string; name: string; color?: string | null } | null> | null
+          nodes?: Array<{ __typename?: 'Language'; name: string; color?: string | null } | null> | null
         } | null
         stargazers: { __typename?: 'StargazerConnection'; totalCount: number }
       } | null> | null
@@ -28563,6 +28563,25 @@ export const GetUserInfoDocument = {
                                   name: { kind: 'Name', value: 'first' },
                                   value: { kind: 'IntValue', value: '1' },
                                 },
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'orderBy' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: 'field' },
+                                        value: { kind: 'EnumValue', value: 'SIZE' },
+                                      },
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: 'direction' },
+                                        value: { kind: 'EnumValue', value: 'DESC' },
+                                      },
+                                    ],
+                                  },
+                                },
                               ],
                               selectionSet: {
                                 kind: 'SelectionSet',
@@ -28573,7 +28592,6 @@ export const GetUserInfoDocument = {
                                     selectionSet: {
                                       kind: 'SelectionSet',
                                       selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                                         { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                                         { kind: 'Field', name: { kind: 'Name', value: 'color' } },
                                       ],
