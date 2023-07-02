@@ -28327,30 +28327,46 @@ export enum WorkflowState {
   DisabledManually = 'DISABLED_MANUALLY',
 }
 
-export type GetPinnedItemsQueryVariables = Exact<{
-  first: Scalars['Int']['input']
+export type SearchRepositoriesQueryVariables = Exact<{
+  query: Scalars['String']['input']
+  first?: InputMaybe<Scalars['Int']['input']>
 }>
 
-export type GetPinnedItemsQuery = {
+export type SearchRepositoriesQuery = {
   __typename?: 'Query'
-  viewer: {
-    __typename?: 'User'
-    pinnedItems: {
-      __typename?: 'PinnableItemConnection'
-      edges?: Array<{
-        __typename?: 'PinnableItemEdge'
-        node?:
-          | { __typename?: 'Gist' }
-          | { __typename?: 'Repository'; name: string; description?: string | null; url: any }
-          | null
-      } | null> | null
-    }
+  search: {
+    __typename?: 'SearchResultItemConnection'
+    edges?: Array<{
+      __typename?: 'SearchResultItemEdge'
+      node?:
+        | { __typename?: 'App' }
+        | { __typename?: 'Discussion' }
+        | { __typename?: 'Issue' }
+        | { __typename?: 'MarketplaceListing' }
+        | { __typename?: 'Organization' }
+        | { __typename?: 'PullRequest' }
+        | {
+            __typename?: 'Repository'
+            id: string
+            name: string
+            description?: string | null
+            url: any
+            isPrivate: boolean
+            isTemplate: boolean
+            languages?: {
+              __typename?: 'LanguageConnection'
+              nodes?: Array<{ __typename?: 'Language'; id: string; name: string; color?: string | null } | null> | null
+            } | null
+            stargazers: { __typename?: 'StargazerConnection'; totalCount: number }
+          }
+        | { __typename?: 'User' }
+        | null
+    } | null> | null
   }
 }
 
 export type SearchUsersQueryVariables = Exact<{
   query: Scalars['String']['input']
-  type: SearchType
   first?: InputMaybe<Scalars['Int']['input']>
 }>
 
@@ -28368,106 +28384,24 @@ export type SearchUsersQuery = {
         | { __typename?: 'Organization' }
         | { __typename?: 'PullRequest' }
         | { __typename?: 'Repository' }
-        | { __typename?: 'User'; avatarUrl: any; login: string }
+        | { __typename?: 'User'; id: string; login: string; avatarUrl: any }
         | null
     } | null> | null
   }
 }
 
-export const GetPinnedItemsDocument = {
+export const SearchRepositoriesDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'GetPinnedItems' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'viewer' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'pinnedItems' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'first' },
-                      value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'edges' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'node' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'InlineFragment',
-                                    typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Repository' } },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'description' } },
-                                        { kind: 'Field', name: { kind: 'Name', value: 'url' } },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetPinnedItemsQuery, GetPinnedItemsQueryVariables>
-export const SearchUsersDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'SearchUsers' },
+      name: { kind: 'Name', value: 'SearchRepositories' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
           variable: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
           type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
-          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'SearchType' } } },
         },
         {
           kind: 'VariableDefinition',
@@ -28490,8 +28424,126 @@ export const SearchUsersDocument = {
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'type' },
-                value: { kind: 'Variable', name: { kind: 'Name', value: 'type' } },
+                value: { kind: 'EnumValue', value: 'REPOSITORY' },
               },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'first' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'edges' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'node' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: { kind: 'NamedType', name: { kind: 'Name', value: 'Repository' } },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'isPrivate' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'isTemplate' } },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'languages' },
+                                    arguments: [
+                                      {
+                                        kind: 'Argument',
+                                        name: { kind: 'Name', value: 'first' },
+                                        value: { kind: 'IntValue', value: '1' },
+                                      },
+                                    ],
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'nodes' },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                                              { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                                              { kind: 'Field', name: { kind: 'Name', value: 'color' } },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'stargazers' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [{ kind: 'Field', name: { kind: 'Name', value: 'totalCount' } }],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SearchRepositoriesQuery, SearchRepositoriesQueryVariables>
+export const SearchUsersDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'SearchUsers' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
+          type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'first' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'search' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'query' },
+                value: { kind: 'Variable', name: { kind: 'Name', value: 'query' } },
+              },
+              { kind: 'Argument', name: { kind: 'Name', value: 'type' }, value: { kind: 'EnumValue', value: 'USER' } },
               {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'first' },
@@ -28519,8 +28571,9 @@ export const SearchUsersDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
-                                  { kind: 'Field', name: { kind: 'Name', value: 'avatarUrl' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                                   { kind: 'Field', name: { kind: 'Name', value: 'login' } },
+                                  { kind: 'Field', name: { kind: 'Name', value: 'avatarUrl' } },
                                 ],
                               },
                             },

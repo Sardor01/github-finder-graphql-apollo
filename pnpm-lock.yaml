@@ -14,6 +14,9 @@ dependencies:
   '@vueuse/core':
     specifier: 10.2.1
     version: 10.2.1(vue@3.3.4)
+  font-proxima-nova-css:
+    specifier: 1.0.4
+    version: 1.0.4
   graphql:
     specifier: 16.7.1
     version: 16.7.1
@@ -40,6 +43,9 @@ devDependencies:
   '@graphql-typed-document-node/core':
     specifier: 3.2.0
     version: 3.2.0(graphql@16.7.1)
+  '@iconify-json/mdi':
+    specifier: 1.1.52
+    version: 1.1.52
   '@types/jsdom':
     specifier: 21.1.1
     version: 21.1.1
@@ -49,9 +55,6 @@ devDependencies:
   '@unocss/eslint-config':
     specifier: 0.53.4
     version: 0.53.4(eslint@8.43.0)(typescript@5.1.6)
-  '@unocss/reset':
-    specifier: 0.53.4
-    version: 0.53.4
   '@vitejs/plugin-vue':
     specifier: 4.2.3
     version: 4.2.3(vite@4.3.9)(vue@3.3.4)
@@ -1711,6 +1714,12 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/mdi@1.1.52:
+    resolution: {integrity: sha512-tLzpFcmoGw1/jHcl+BshUd4bqvP4755OUluaARsuKskTp2aIPIAkRQOhzJGpry9CZ0i82z0alq4HrKrp9uvj4A==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types@2.0.0:
@@ -4203,6 +4212,10 @@ packages:
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
+
+  /font-proxima-nova-css@1.0.4:
+    resolution: {integrity: sha512-AAjr20MlE69bawDgFaCI6qMSk/zODuEtNLQUVxFx7JH7cCcJJhT4IfLZGFWFmHNtk2vOHVM3KyJm8hnwm6w3nw==}
+    dev: false
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}

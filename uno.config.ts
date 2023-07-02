@@ -1,4 +1,11 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno, presetWebFonts } from 'unocss'
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  presetWebFonts,
+  transformerVariantGroup,
+} from 'unocss'
 
 export default defineConfig({
   presets: [
@@ -9,11 +16,16 @@ export default defineConfig({
       warn: true,
     }),
     presetWebFonts({
+      provider: 'none',
       fonts: {
-        sans: 'DM Sans',
-        serif: 'DM Serif Display',
-        mono: 'DM Mono',
+        sans: 'Proxima Nova',
       },
     }),
   ],
+  theme: {
+    container: {
+      center: true,
+    },
+  },
+  transformers: [transformerVariantGroup()],
 })

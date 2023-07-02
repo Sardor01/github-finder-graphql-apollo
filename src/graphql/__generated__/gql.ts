@@ -13,9 +13,9 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n':
-    types.GetPinnedItemsDocument,
-  '\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n':
+  '\n  query SearchRepositories($query: String!, $first: Int) {\n    search(query: $query, type: REPOSITORY, first: $first) {\n      edges {\n        node {\n          ... on Repository {\n            id\n            name\n            description\n            url\n            isPrivate\n            isTemplate\n            languages(first: 1) {\n              nodes {\n                id\n                name\n                color\n              }\n            }\n            stargazers {\n              totalCount\n            }\n          }\n        }\n      }\n    }\n  }\n':
+    types.SearchRepositoriesDocument,
+  '\n  query SearchUsers($query: String!, $first: Int) {\n    search(query: $query, type: USER, first: $first) {\n      edges {\n        node {\n          ... on User {\n            id\n            login\n            avatarUrl\n          }\n        }\n      }\n    }\n  }\n':
     types.SearchUsersDocument,
 }
 
@@ -37,14 +37,14 @@ export function graphql(source: string): unknown
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query GetPinnedItems($first: Int!) {\n    viewer {\n      pinnedItems(first: $first) {\n        edges {\n          node {\n            ... on Repository {\n              name\n              description\n              url\n            }\n          }\n        }\n      }\n    }\n  }\n']
+  source: '\n  query SearchRepositories($query: String!, $first: Int) {\n    search(query: $query, type: REPOSITORY, first: $first) {\n      edges {\n        node {\n          ... on Repository {\n            id\n            name\n            description\n            url\n            isPrivate\n            isTemplate\n            languages(first: 1) {\n              nodes {\n                id\n                name\n                color\n              }\n            }\n            stargazers {\n              totalCount\n            }\n          }\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query SearchRepositories($query: String!, $first: Int) {\n    search(query: $query, type: REPOSITORY, first: $first) {\n      edges {\n        node {\n          ... on Repository {\n            id\n            name\n            description\n            url\n            isPrivate\n            isTemplate\n            languages(first: 1) {\n              nodes {\n                id\n                name\n                color\n              }\n            }\n            stargazers {\n              totalCount\n            }\n          }\n        }\n      }\n    }\n  }\n']
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: '\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n',
-): (typeof documents)['\n  query SearchUsers($query: String!, $type: SearchType!, $first: Int) {\n    search(query: $query, type: $type, first: $first) {\n      edges {\n        node {\n          ... on User {\n            avatarUrl\n            login\n          }\n        }\n      }\n    }\n  }\n']
+  source: '\n  query SearchUsers($query: String!, $first: Int) {\n    search(query: $query, type: USER, first: $first) {\n      edges {\n        node {\n          ... on User {\n            id\n            login\n            avatarUrl\n          }\n        }\n      }\n    }\n  }\n',
+): (typeof documents)['\n  query SearchUsers($query: String!, $first: Int) {\n    search(query: $query, type: USER, first: $first) {\n      edges {\n        node {\n          ... on User {\n            id\n            login\n            avatarUrl\n          }\n        }\n      }\n    }\n  }\n']
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {}

@@ -7,7 +7,12 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseButton: typeof import('./src/components/base/BaseButton.vue')['default']
+    BaseSelect: typeof import('./src/components/base/BaseSelect.vue')['default']
+    BaseTextField: typeof import('./src/components/base/BaseTextField.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheHeader: typeof import('./src/components/TheHeader.vue')['default']
+    UserCard: typeof import('./src/components/cards/UserCard.vue')['default']
   }
 }
